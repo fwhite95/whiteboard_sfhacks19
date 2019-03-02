@@ -26,6 +26,10 @@ class _WhiteBoardPageState extends State<WhiteBoardPage>{
   PainterController _controller;
   bool _finished;
 
+  void _onUndoButtonPressed(){
+
+  }
+
   @override
   void initState(){
     super.initState();
@@ -39,7 +43,9 @@ class _WhiteBoardPageState extends State<WhiteBoardPage>{
     controller.backgroundColor=Colors.white;
     return controller;
   }
-  
+
+
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -48,11 +54,33 @@ class _WhiteBoardPageState extends State<WhiteBoardPage>{
         title: const Text('Painter'),
         
       ),
-      body: new Center(
+      body: new Stack(
+        children: <Widget>[
+          Painter(_controller),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Column(
+                children: <Widget>[
+                  FloatingActionButton(
+                    onPressed: _controller.undo,
+                    child: const Icon(Icons.undo, size: 36.0,),
+                  ),
+                  FloatingActionButton(
+                    onPressed: _controller.clear,
+                    child: const Icon(Icons.clear, size: 36.0,),
+                  ),
 
-        child: new Painter(_controller),),
+                ],
+              ),
+            ),
+          )
+        ],
+      )
 
     );
   }
   
 }
+
